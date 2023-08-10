@@ -100,7 +100,7 @@ public class OperacoesComTransacao extends EntityManagerTest {
     }
 
     @Test
-    public void removerObjedto() {
+    public void removerObjeto() {
         Produto produto = entityManager.find(Produto.class, 3);
 
         entityManager.getTransaction().begin();
