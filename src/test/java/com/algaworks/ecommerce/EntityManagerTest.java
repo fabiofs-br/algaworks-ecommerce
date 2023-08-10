@@ -1,6 +1,5 @@
 package com.algaworks.ecommerce;
 
-import com.algaworks.ecommerce.model.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
