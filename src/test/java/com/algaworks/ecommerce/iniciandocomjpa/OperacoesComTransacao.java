@@ -10,6 +10,43 @@ import java.math.BigDecimal;
 public class OperacoesComTransacao extends EntityManagerTest {
 
     @Test
+    public void mostrarDiferencaPersistMerge() {
+        Produto produtoPersist = new Produto();
+
+        produtoPersist.setId(4);
+        produtoPersist.setNome("Smartphone One Plus");
+        produtoPersist.setDescricao("A processador mais rápido.");
+        produtoPersist.setPreco(new BigDecimal(2000));
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produtoPersist);
+        produtoPersist.setNome("Smartphone Two Plus");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produtoPersist.getId());
+        Assertions.assertNotNull(produtoVerificacaoPersist);
+
+        Produto produtoMerge = new Produto();
+
+        produtoMerge.setId(6);
+        produtoMerge.setNome("Notebook Dell");
+        produtoMerge.setDescricao("O melhor da categoria.");
+        produtoMerge.setPreco(new BigDecimal(2000));
+
+        entityManager.getTransaction().begin();
+        produtoMerge = entityManager.merge(produtoMerge);
+        produtoMerge.setNome("Notebook Dell 2");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+        Assertions.assertNotNull(produtoVerificacaoMerge);
+    }
+
+    @Test
     public void inserirObjetoComMerge() {
         Produto produto = new Produto();
 
