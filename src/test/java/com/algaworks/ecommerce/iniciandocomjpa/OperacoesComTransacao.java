@@ -28,7 +28,7 @@ public class OperacoesComTransacao extends EntityManagerTest {
     public void mostrarDiferencaPersistMerge() {
         Produto produtoPersist = new Produto();
 
-        produtoPersist.setId(4);
+        produtoPersist.setId(5);
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setDescricao("A processador mais rápido.");
         produtoPersist.setPreco(new BigDecimal(2000));
