@@ -12,16 +12,18 @@ import java.math.BigDecimal;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Produto {
+public class ItemPedido {
 
     @EqualsAndHashCode.Include
     @Id
     private Integer id;
 
-    private String nome;
+    private Integer pedidoId;
 
-    private String descricao;
+    private Integer produtoId;
 
-    private BigDecimal preco;
+    private BigDecimal precoProduto;
+
+    private Integer quantidade;
 
 }

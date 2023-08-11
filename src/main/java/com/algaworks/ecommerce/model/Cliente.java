@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "cliente")
+@Entity
 public class Cliente {
 
     @EqualsAndHashCode.Include
@@ -17,5 +17,7 @@ public class Cliente {
     private Integer id;
 
     private String nome;
+
+    private SexoCliente sexo;
 
 }
