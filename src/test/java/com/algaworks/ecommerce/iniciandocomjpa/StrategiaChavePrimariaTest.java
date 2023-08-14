@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class StrategiaChavePrimariaTest extends EntityManagerTest {
 
     @Test
-    public void testarEstrategiaAuto() {
+    public void testarEstrategiaChave() {
         Categoria categoria = new Categoria();
         categoria.setNome("Eletrônicos");
 
