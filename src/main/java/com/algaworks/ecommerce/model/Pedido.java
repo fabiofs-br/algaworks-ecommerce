@@ -42,11 +42,11 @@ public class Pedido {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
 }
