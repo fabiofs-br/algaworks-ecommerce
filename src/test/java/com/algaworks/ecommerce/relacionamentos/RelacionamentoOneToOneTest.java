@@ -5,6 +5,8 @@ import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
     @Test
@@ -24,6 +26,25 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
         Assertions.assertNotNull(pedidoVerificacao.getPagamento());
+    }
+
+    @Test
+    public void verificarRelacionamentoPedidoNotaFiscal() {
+        Pedido pedido = entityManager.find(Pedido.class, 1);
+
+        NotaFiscal notafiscal = new NotaFiscal();
+        notafiscal.setXml("TESTE");
+        notafiscal.setDataEmissao(new Date());
+        notafiscal.setPedido(pedido);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(notafiscal);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
+        Assertions.assertNotNull(pedidoVerificacao.getNotaFiscal());
     }
 
 }
