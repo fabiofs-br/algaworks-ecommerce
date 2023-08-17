@@ -4,7 +4,7 @@ INSERT INTO produto (id, nome, preco, descricao) VALUES (3, 'Câmera GoPro Hero 
 INSERT INTO cliente (id, nome) VALUES (1, 'Fernando Medeiros');
 INSERT INTO cliente (id, nome) VALUES (2, 'Marcos Mariano');
 
-INSERT INTO pedido (id, cliente_id, data_pedido, total, status) VALUES (1, 1, SYSDATE(), 100.0, 'AGUARDANDO');
+INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (1, 1, SYSDATE(), 100.0, 'AGUARDANDO');
 
 INSERT INTO item_pedido (id, pedido_id, produto_id, preco_produto, quantidade) VALUES (1, 1, 1, 5.0, 2);
 
