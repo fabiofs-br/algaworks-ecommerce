@@ -1,13 +1,13 @@
 package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
-import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -28,6 +28,12 @@ public class Produto {
     private String descricao;
 
     private BigDecimal preco;
+
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "data_ultima_atualziacao", insertable = false)
+    private LocalDateTime dataUltimaAtualizacao;
 
     @ManyToMany
     @JoinTable(name = "produto_categoria",
