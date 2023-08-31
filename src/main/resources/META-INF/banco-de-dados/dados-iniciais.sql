@@ -10,6 +10,7 @@ INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (2, 1, S
 INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (1, 1, 499, 2);
 INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (2, 1, 499, 1);
 
-INSERT INTO pagamento_cartao (pedido_id, status, numero_cartao) VALUE (2, 'PROCESSANDO', '123');
+INSERT INTO pagamento (pedido_id, status, tipo_pagamento) VALUE (2, 'PROCESSANDO', 'cartao');
+INSERT INTO pagamento_cartao (pedido_id, numero_cartao) VALUE (2, '123');
 
 INSERT INTO categoria (id, nome) VALUES (1, 'Eletrônicos');
