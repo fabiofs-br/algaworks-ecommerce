@@ -4,8 +4,12 @@ INSERT INTO produto (id, nome, preco, data_criacao, descricao) VALUES (3, 'Câme
 INSERT INTO cliente (id, nome) VALUES (1, 'Fernando Medeiros');
 INSERT INTO cliente (id, nome) VALUES (2, 'Marcos Mariano');
 
-INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (1, 1, SYSDATE(), 100.0, 'AGUARDANDO');
+INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (1, 1, SYSDATE(), 998.0, 'AGUARDANDO');
+INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (2, 1, SYSDATE(), 499.0, 'AGUARDANDO');
 
-INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (1, 1, 5.0, 2);
+INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (1, 1, 499, 2);
+INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (2, 1, 499, 1);
+
+INSERT INTO pagamento (pedido_id, status, numero_cartao, dtype) VALUE (2, 'PROCESSANDO', '123', 'PagamentoCartao');
 
 INSERT INTO categoria (id, nome) VALUES (1, 'Eletrônicos');

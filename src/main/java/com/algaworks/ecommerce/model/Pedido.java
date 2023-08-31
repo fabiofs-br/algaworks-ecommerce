@@ -3,7 +3,6 @@ package com.algaworks.ecommerce.model;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,7 +35,7 @@ public class Pedido extends EntidadeBaseInteger {
     private StatusPedido status;
 
     @OneToOne(mappedBy = "pedido")
-    private PagamentoCartao pagamento;
+    private Pagamento pagamento;
 
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
