@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
@@ -29,6 +30,7 @@ public abstract class Pagamento extends EntidadeBaseInteger {
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
     private StatusPagamento status;
 
 }
