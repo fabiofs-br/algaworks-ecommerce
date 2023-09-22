@@ -19,10 +19,13 @@ import java.util.List;
 )
 public class Produto extends EntidadeBaseInteger {
 
+    @Column(length = 100, nullable = false) // nome varchar(100) not null
     private String nome;
 
+    @Column(columnDefinition = "nome varchar(275) not null default 'descricao'")
     private String descricao;
 
+    @Column(precision = 10, scale = 2) // preco decimal(10, 2)
     private BigDecimal preco;
 
     @Lob
