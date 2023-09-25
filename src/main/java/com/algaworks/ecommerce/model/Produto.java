@@ -4,6 +4,7 @@ import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Length;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,7 +23,8 @@ public class Produto extends EntidadeBaseInteger {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column(columnDefinition = "varchar(275) default 'descricao'")
+    @Lob
+    @Column(length = Length.LONG32) // 2Gb
     private String descricao;
 
     private BigDecimal preco;
