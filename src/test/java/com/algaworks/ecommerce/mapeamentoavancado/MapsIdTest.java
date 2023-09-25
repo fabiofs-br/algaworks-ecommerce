@@ -12,9 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class MapsIdTest extends EntityManagerTest {
@@ -40,7 +38,7 @@ public class MapsIdTest extends EntityManagerTest {
     }
 
     @Test
-    public void insserirItemPedido() {
+    public void inserirItemPedido() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
 

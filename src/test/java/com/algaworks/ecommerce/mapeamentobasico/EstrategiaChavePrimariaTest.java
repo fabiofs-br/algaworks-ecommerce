@@ -5,12 +5,12 @@ import com.algaworks.ecommerce.model.Categoria;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class StrategiaChavePrimariaTest extends EntityManagerTest {
+public class EstrategiaChavePrimariaTest extends EntityManagerTest {
 
     @Test
     public void testarEstrategiaChave() {
         Categoria categoria = new Categoria();
-        categoria.setNome("Eletrônicos");
+        categoria.setNome("Natação");
 
         entityManager.getTransaction().begin();
         entityManager.persist(categoria);
