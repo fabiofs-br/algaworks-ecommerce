@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-public class CascadeTypePersisitTest extends EntityManagerTest {
+public class CascadeTypePersistTest extends EntityManagerTest {
 
 //    @Test
     public void persistirProdutoComCategoria() {
@@ -30,7 +30,7 @@ public class CascadeTypePersisitTest extends EntityManagerTest {
         Categoria categoria = new Categoria();
         categoria.setNome("Áudio");
 
-        produto.setCategorias(Arrays.asList(categoria)); // CascadeType.PERSISIT
+        produto.setCategorias(Arrays.asList(categoria)); // CascadeType.PERSIST
 
         entityManager.getTransaction().begin();
         entityManager.persist(produto);
