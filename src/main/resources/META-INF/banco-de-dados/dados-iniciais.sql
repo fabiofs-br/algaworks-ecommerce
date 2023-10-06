@@ -19,3 +19,4 @@ INSERT INTO categoria (id, nome) VALUES (1, 'Eletrodomésticos');
 INSERT INTO categoria (id, nome) VALUES (2, 'Livros');
 
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (1, 2);
+
