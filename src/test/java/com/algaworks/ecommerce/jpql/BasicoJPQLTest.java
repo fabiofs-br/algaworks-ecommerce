@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Pedido;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,21 @@ public class BasicoJPQLTest extends EntityManagerTest {
 
 //        List<Pedido> lista = typedQuery.getResultList();
 //        Assertions.assertFalse(lista.isEmpty());
-
     }
 
+    @Test
+    public void mostrarDiferencaQueries() {
+        String jpql = "select p from Pedido p where p.id = 1";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        Pedido pedido1 = typedQuery.getSingleResult();
+        Assertions.assertNotNull(pedido1);
+
+        Query query = entityManager.createQuery(jpql);
+        Pedido pedido2 = (Pedido) query.getSingleResult();
+        Assertions.assertNotNull(pedido2);
+
+//        List<Pedido> lista = query.getResultList();
+//        Assertions.assertFalse(lista.isEmpty());
+    }
 }
