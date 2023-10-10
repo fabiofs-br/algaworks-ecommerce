@@ -1,1 +1,3 @@
 CREATE TABLE testando (id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id)) ENGINE = InnoDB;
+
+CREATE FUNCTION acima_media_faturamento(valor DOUBLE) RETURNS BOOLEAN READS SQL DATA RETURN valor > (SELECT avg(total) FROM pedido);
