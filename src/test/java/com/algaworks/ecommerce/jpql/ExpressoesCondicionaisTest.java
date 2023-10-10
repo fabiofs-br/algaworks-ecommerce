@@ -15,11 +15,21 @@ import java.util.List;
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
-    public void usarExpressaoCondicionalLike() {
-        String jpql = "select c from Cliente c where c.nome like concat('%', :nome, '%')";
+    public void usarIsNull() {
+        // cast as string para evitar erro
+        String jpql = "select p from Produto p where cast(p.foto as string) is null";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
-        typedQuery.setParameter("nome", "a");
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assertions.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarIsEmpty() {
+        String jpql = "select p from Produto p where p.categorias is empty";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 
         List<Object[]> lista = typedQuery.getResultList();
         Assertions.assertFalse(lista.isEmpty());
