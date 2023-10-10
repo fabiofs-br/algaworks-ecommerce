@@ -18,8 +18,13 @@ INSERT INTO pagamento (pedido_id, status, numero_cartao, tipo_pagamento) VALUE (
 
 INSERT INTO nota_fiscal (pedido_id, xml, data_emissao) values (2, '<xml />', SYSDATE());
 
-INSERT INTO categoria (id, nome) VALUES (1, 'Eletrodomésticos');
-INSERT INTO categoria (id, nome) VALUES (2, 'Livros');
+INSERT INTO categoria (nome) VALUES ('Eletrodomésticos');
+INSERT INTO categoria (nome) VALUES ('Livros');
+INSERT INTO categoria (nome) VALUES ('Esportes');
+INSERT INTO categoria (nome) VALUES ('Futebol');
+INSERT INTO categoria (nome) VALUES ('Natação');
+INSERT INTO categoria (nome) VALUES ('Notebooks');
+INSERT INTO categoria (nome) VALUES ('Smartphones');
 
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (1, 2);
 
