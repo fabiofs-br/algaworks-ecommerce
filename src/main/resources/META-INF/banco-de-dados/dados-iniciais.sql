@@ -16,6 +16,8 @@ INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUE
 
 INSERT INTO pagamento (pedido_id, status, numero_cartao, tipo_pagamento) VALUE (2, 'PROCESSANDO', '123', 'cartao');
 
+INSERT INTO nota_fiscal (pedido_id, xml, data_emissao) values (2, '<xml />', SYSDATE());
+
 INSERT INTO categoria (id, nome) VALUES (1, 'Eletrodomésticos');
 INSERT INTO categoria (id, nome) VALUES (2, 'Livros');
 
