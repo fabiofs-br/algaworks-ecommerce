@@ -28,3 +28,4 @@ INSERT INTO categoria (nome) VALUES ('Smartphones');
 
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (1, 2);
 
+
