@@ -19,7 +19,10 @@ INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUE
 INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (3, 4, 3500, 1);
 INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (4, 1, 499, 1);
 
-INSERT INTO pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) VALUES (2, 'PROCESSANDO', 'cartao', '123', NULL);
+INSERT INTO pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) VALUES (1, 'RECEBIDO', 'cartao', '0123', NULL);
+INSERT INTO pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) VALUES (2, 'PROCESSANDO', 'cartao', '4567', NULL);
+INSERT INTO pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) VALUES (3, 'RECEBIDO', 'boleto', NULL, '8910');
+INSERT INTO pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) VALUES (4, 'PROCESSANDO', 'cartao', '1112', NULL);
 
 INSERT INTO nota_fiscal (pedido_id, xml, data_emissao) VALUES (2, '<xml />', SYSDATE());
 
