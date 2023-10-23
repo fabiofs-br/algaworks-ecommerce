@@ -1,4 +1,4 @@
-INSERT INTO produto (id, nome, preco, data_criacao, descricao) VALUES (1, 'Kindle', 499.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
+INSERT INTO produto (id, nome, preco, data_criacao, descricao) VALUES (1, 'Kindle', 799.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
 INSERT INTO produto (id, nome, preco, data_criacao, descricao) VALUES (3, 'Câmera GoPro Hero 7', 1400.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Desempenho 2x melhor.');
 INSERT INTO produto (id, nome, preco, data_criacao, descricao) VALUES (4, 'Câmera Canon 80D', 3500.0, SYSDATE(), 'O melhor ajuste de foco.');
 
