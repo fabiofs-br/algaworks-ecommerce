@@ -3,10 +3,14 @@ package com.algaworks.ecommerce.criteria;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Cliente_;
+import com.algaworks.ecommerce.model.Pagamento;
+import com.algaworks.ecommerce.model.PagamentoBoleto;
+import com.algaworks.ecommerce.model.PagamentoCartao;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Pedido_;
 import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.Produto_;
+import com.algaworks.ecommerce.model.StatusPedido;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -19,6 +23,36 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
+
+    @Test
+    public void usarExpressaoCase() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery.multiselect(
+                root.get(Pedido_.id),
+//                criteriaBuilder.selectCase(root.get(Pedido_.status))
+//                        .when(StatusPedido.PAGO, "Foi pago.")
+//                        .when(StatusPedido.AGUARDANDO, "Está aguardando.")
+//                        .otherwise(root.get(Pedido_.status)).as(String.class)
+//                criteriaBuilder.selectCase(root.get(Pedido_.pagamento).type().as(String.class))
+//                        .when("boleto", "Foi pago com boleto.")
+//                        .when("cartao", "Foi pago com cartão.")
+//                        .otherwise("Não identificado").as(String.class)
+                criteriaBuilder.selectCase(root.get(Pedido_.pagamento).type())
+                        .when(PagamentoBoleto.class, "Foi pago com boleto.")
+                        .when(PagamentoCartao.class, "Foi pago com cartão.")
+                        .otherwise("Não identificado").as(String.class)
+        );
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assertions.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+    }
 
     @Test
     public void usarExpressaoDiferente() {
