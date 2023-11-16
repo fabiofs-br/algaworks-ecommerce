@@ -22,7 +22,7 @@ import java.util.List;
 public class FuncoesCriteriaTest extends EntityManagerTest {
 
     @Test
-    public void aplicarFuncaoAgragacao() {
+    public void aplicarFuncaoAgregacao() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
