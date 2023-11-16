@@ -18,11 +18,70 @@ import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class GroupByCriteriaTest extends EntityManagerTest {
+
+    @Test
+    public void condicionarAgrumpamentoComHaving() {
+//        Total de vendas dentre as categorias que mais vendem.
+//        String jpql = "select cat.nome, sum(ip.precoProduto * ip.quantidade)" +
+//                " from ItemPedido ip join ip.produto pro join pro.categorias cat " +
+//                " group by cat.id " +
+//                " having avg(ip.precoProduto * ip.quantidade) > 800";
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<ItemPedido> root = criteriaQuery.from(ItemPedido.class);
+        Join<ItemPedido, Produto> joinProduto = root.join(ItemPedido_.produto);
+        Join<Produto, Categoria> joinProdutoCategoria = joinProduto.join(Produto_.categorias);
+
+        criteriaQuery.multiselect(
+                joinProdutoCategoria.get(Categoria_.nome),
+                criteriaBuilder.sum(
+                        criteriaBuilder.prod(
+                                root.get(ItemPedido_.precoProduto),
+                                root.get(ItemPedido_.quantidade)
+                        )
+
+                ),
+                criteriaBuilder.avg(
+                        criteriaBuilder.prod(
+                                root.get(ItemPedido_.precoProduto),
+                                root.get(ItemPedido_.quantidade)
+                        )
+                )
+        );
+
+        criteriaQuery.groupBy(joinProdutoCategoria.get(Categoria_.id));
+
+        criteriaQuery.having(
+                criteriaBuilder.greaterThan(
+                        criteriaBuilder.avg(
+                                criteriaBuilder.prod(
+                                        root.get(ItemPedido_.precoProduto),
+                                        root.get(ItemPedido_.quantidade)
+                                )
+                        ).as(BigDecimal.class),
+                        new BigDecimal(800)
+                )
+        );
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assertions.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(
+                "Nome categoria: " + arr[0]
+                        + ", SUM: " + arr[1]
+                        + ", AVG: " + arr[2]
+        ));
+    }
 
     @Test
     public void agruparResultadoComFuncoes() {
