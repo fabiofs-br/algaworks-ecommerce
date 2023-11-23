@@ -52,7 +52,7 @@ public class SubqueriesTest extends EntityManagerTest {
         String jpql = "select p from Produto p where " +
                 " p.preco > all (select precoProduto from ItemPedido where produto = p)";
 
-//        Todos os produtos não foram vendidos pelo preco atual·
+//        Todos os produtos que sempre foram vendidos pelo preco atual·
 //        String jpql = "select p from Produto p where " +
 //                " p.preco = all (select precoProduto from ItemPedido where produto = p)";
 
