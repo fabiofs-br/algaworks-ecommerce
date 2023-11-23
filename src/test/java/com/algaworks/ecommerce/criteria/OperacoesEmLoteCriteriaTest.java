@@ -1,30 +1,41 @@
 package com.algaworks.ecommerce.criteria;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.model.Categoria;
 import com.algaworks.ecommerce.model.Categoria_;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.Cliente_;
-import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.Produto_;
 import jakarta.persistence.Query;
-import jakarta.persistence.Tuple;
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Subquery;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.List;
+
 
 public class OperacoesEmLoteCriteriaTest extends EntityManagerTest {
+
+    @Test
+    public void removerEmLoteExercicio() {
+        entityManager.getTransaction().begin();
+
+//        String jpql = "delete from Produto p where p.id between 5 and 12";
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaDelete<Produto> criteriaDelete = criteriaBuilder.createCriteriaDelete(Produto.class);
+        Root<Produto> root = criteriaDelete.from(Produto.class);
+
+        criteriaDelete.where(criteriaBuilder.between(root.get(Produto_.id),5, 12));
+
+        Query query = entityManager.createQuery(criteriaDelete);
+        query.executeUpdate();
+
+        entityManager.getTransaction().commit();
+    }
 
     @Test
     public void atualizarEmLote() {
