@@ -1,8 +1,11 @@
 package com.algaworks.ecommerce.criteria;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Categoria;
+import com.algaworks.ecommerce.model.Categoria_;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.ItemPedido;
+import com.algaworks.ecommerce.model.ItemPedidoId_;
 import com.algaworks.ecommerce.model.ItemPedido_;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Pedido_;
@@ -21,6 +24,35 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class SubqueriesCriteriaTest extends EntityManagerTest {
+
+    @Test
+    public void pesquisarComInExercicio() {
+//        Todos os pedidos que tenham algum produto da categoria de id igual a 2
+//        String jpql = "select p from Pedido p where p.id in " +
+//                " (select p2.id from ItemPedido i2 " +
+//                " join i2.pedido p2 join i2.produto pro2 join pro2.categorias c2 where c2.id = 2) ";
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery.select(root);
+
+        Subquery<Integer> subquery = criteriaQuery.subquery(Integer.class);
+        Root<ItemPedido> subqueryRoot = subquery.from(ItemPedido.class);
+        Join<ItemPedido, Produto> subqueryJoinItemPedidoProduto = subqueryRoot.join(ItemPedido_.produto);
+        Join<Produto, Categoria> subqueryJoinProdutoCategoria = subqueryJoinItemPedidoProduto.join(Produto_.categorias);
+        subquery.select(subqueryRoot.get(ItemPedido_.id).get(ItemPedidoId_.pedidoId));
+        subquery.where(criteriaBuilder.equal(subqueryJoinProdutoCategoria.get(Categoria_.id), 2));
+
+        criteriaQuery.where(root.get(Pedido_.id).in(subquery));
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> lista = typedQuery.getResultList();
+        Assertions.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
 
     @Test
     public void pesquisarComSubqueryExercicio() {
