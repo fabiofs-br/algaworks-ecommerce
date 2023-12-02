@@ -44,3 +44,4 @@ INSERT INTO categoria (id, nome) VALUES (8, 'Câmeras');
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (1, 2);
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (3, 8);
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (4, 8);
+
