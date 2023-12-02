@@ -42,7 +42,7 @@ public class Produto extends EntidadeBaseInteger {
     @Column(name = "data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
-    @Column(name = "data_ultima_atualziacao", insertable = false)
+    @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
     @ManyToMany

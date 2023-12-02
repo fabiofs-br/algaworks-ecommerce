@@ -13,8 +13,8 @@ INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (1, 1, D
 INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (2, 1, DATE_SUB(SYSDATE(), INTERVAL 5 DAY), 499.0, 'AGUARDANDO');
 INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (3, 1, DATE_SUB(SYSDATE(), INTERVAL 4 DAY), 3500.0, 'PAGO');
 INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (4, 2, DATE_SUB(SYSDATE(), INTERVAL 2 DAY), 499.0, 'PAGO');
-INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (5, 1, DATE_SUB(SYSDATE(), INTERVAL 2 day), 799.0, 'PAGO');
-INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (6, 2, DATE_SUB(SYSDATE(), INTERVAL 2 day), 799.0, 'AGUARDANDO');
+INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (5, 1, DATE_SUB(SYSDATE(), INTERVAL 2 DAY), 799.0, 'PAGO');
+INSERT INTO pedido (id, cliente_id, data_criacao, total, status) VALUES (6, 2, DATE_SUB(SYSDATE(), INTERVAL 2 DAY), 799.0, 'AGUARDANDO');
 
 INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (1, 1, 499, 2);
 INSERT INTO item_pedido (pedido_id, produto_id, preco_produto, quantidade) VALUES (1, 3, 1400, 1);
@@ -44,4 +44,19 @@ INSERT INTO categoria (id, nome) VALUES (8, 'Câmeras');
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (1, 2);
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (3, 8);
 INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (4, 8);
+
+INSERT INTO produto_loja (id, nome, preco, data_criacao, descricao) VALUES (101, 'Kindle', 799.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
+INSERT INTO produto_loja (id, nome, preco, data_criacao, descricao) VALUES (103, 'Câmera GoPro Hero 7', 1500.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Desempenho 2x melhor.');
+INSERT INTO produto_loja (id, nome, preco, data_criacao, descricao) VALUES (104, 'Câmera Canon 80D', 3500.0, SYSDATE(), 'O melhor ajuste de foco.');
+INSERT INTO produto_loja (id, nome, preco, data_criacao, descricao) VALUES (105, 'Microfone de Lapela', 50.0, SYSDATE(), 'Produto massa');
+
+INSERT INTO ecm_produto (prd_id, prd_nome, prd_preco, prd_data_criacao, prd_descricao) VALUES (201, 'Kindle', 799.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
+INSERT INTO ecm_produto (prd_id, prd_nome, prd_preco, prd_data_criacao, prd_descricao) VALUES (203, 'Câmera GoPro Hero 7', 1500.0, DATE_SUB(SYSDATE(), INTERVAL 1 DAY), 'Desempenho 2x melhor.');
+INSERT INTO ecm_produto (prd_id, prd_nome, prd_preco, prd_data_criacao, prd_descricao) VALUES (204, 'Câmera Canon 80D', 3500.0, SYSDATE(), 'O melhor ajuste de foco.');
+INSERT INTO ecm_produto (prd_id, prd_nome, prd_preco, prd_data_criacao, prd_descricao) VALUES (205, 'Microfone de Lapela', 50.0, SYSDATE(), 'Produto massa');
+
+INSERT INTO erp_produto (id, nome, preco, descricao) VALUES (301, 'Kindle', 799.0, 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
+INSERT INTO erp_produto (id, nome, preco, descricao) VALUES (303, 'Câmera GoPro Hero 7', 1500.0, 'Desempenho 2x melhor.');
+INSERT INTO erp_produto (id, nome, preco, descricao) VALUES (304, 'Câmera Canon 80D', 3500.0, 'O melhor ajuste de foco.');
+INSERT INTO erp_produto (id, nome, preco, descricao) VALUES (305, 'Microfone de Lapela', 50.0, 'Produto massa');
 
