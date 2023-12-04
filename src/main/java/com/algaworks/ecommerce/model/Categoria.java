@@ -1,5 +1,7 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.dto.CategoriaDTO;
+import com.algaworks.ecommerce.dto.ProdutoDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

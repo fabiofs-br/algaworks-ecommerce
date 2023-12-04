@@ -20,7 +20,6 @@ import java.util.List;
         @NamedNativeQuery(name = "ecm_produto.listar",
                 query = "select * from ecm_produto", resultSetMapping = "ecm_produto.Produto")
 })
-
 @SqlResultSetMappings({
         @SqlResultSetMapping(name = "produto_loja.Produto",
                 entities = { @EntityResult(entityClass = Produto.class) }),
