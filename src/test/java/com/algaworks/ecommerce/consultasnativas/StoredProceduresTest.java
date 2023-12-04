@@ -1,12 +1,31 @@
 package com.algaworks.ecommerce.consultasnativas;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Cliente;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class StoredProceduresTest extends EntityManagerTest {
+
+    @Test
+    public void receberListaDaProcedure() {
+        StoredProcedureQuery storedProcedureQuery = entityManager
+                .createStoredProcedureQuery("compraram_acima_media", Cliente.class);
+
+        storedProcedureQuery
+                .registerStoredProcedureParameter("ano", Integer.class, ParameterMode.IN);
+
+        storedProcedureQuery.setParameter("ano", LocalDateTime.now().getYear());
+
+        List<Cliente> lista = storedProcedureQuery.getResultList();
+
+        Assertions.assertFalse(lista.isEmpty());
+    }
 
     @Test
     public void usarParamentrosInEOut() {
