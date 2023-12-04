@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,6 +25,12 @@ import java.util.List;
                         @FieldResult(name = "foto", column = "prd_foto"),
                         @FieldResult(name = "dataCriacao", column = "prd_data_criacao"),
                         @FieldResult(name = "dataUltimaAtualizacao", column = "prd_data_ultima_atualizacao"),
+                })
+        }),
+        @SqlResultSetMapping(name = "ecm_produto.ProdutoDTO",
+                classes = { @ConstructorResult(targetClass = ProdutoDTO.class, columns = {
+                        @ColumnResult(name = "prd_id", type = Integer.class),
+                        @ColumnResult(name = "prd_nome", type = String.class)
                 })
         }),
 })

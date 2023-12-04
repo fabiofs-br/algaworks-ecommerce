@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.consultasnativas;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.model.ItemPedido;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
@@ -10,6 +11,19 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class ConsultaNativaTest extends EntityManagerTest {
+
+    @Test
+    public void usarColumResultRetornarDto() {
+        String sql = "select * from ecm_produto";
+
+        Query query = entityManager.createNativeQuery(sql, "ecm_produto.ProdutoDTO");
+
+        List<ProdutoDTO> lista = query.getResultList();
+
+        lista.stream().forEach(obj-> System.out.println(
+                String.format("ProdutoDTO => ID: %s, Nome: %s", obj.getId(), obj.getNome())
+        ));
+    }
 
     @Test
     public void usarFieldResult() {
