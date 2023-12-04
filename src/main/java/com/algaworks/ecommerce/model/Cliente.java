@@ -10,10 +10,13 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.NamedStoredProcedureQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.StoredProcedureParameter;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
@@ -26,6 +29,13 @@ import java.util.Map;
 
 @Getter
 @Setter
+@NamedStoredProcedureQuery(name = "compraram_acima_media",
+        procedureName = "compraram_acima_media",
+        parameters = {
+                @StoredProcedureParameter(name = "ano", type = Integer.class, mode = ParameterMode.IN)
+        },
+        resultClasses = Cliente.class
+)
 @SecondaryTable(name = "cliente_detalhe",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"),
         foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente"))
@@ -74,3 +84,5 @@ public class Cliente extends EntidadeBaseInteger {
     }
 
 }
+
+
