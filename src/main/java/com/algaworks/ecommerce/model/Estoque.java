@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
@@ -21,7 +22,9 @@ public class Estoque extends EntidadeBaseInteger {
     @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_estoque_produto"))
     private Produto produto;
 
+    @NotNull
     @PositiveOrZero
+    @Column(nullable = false)
     private Integer quantidade;
 
 }

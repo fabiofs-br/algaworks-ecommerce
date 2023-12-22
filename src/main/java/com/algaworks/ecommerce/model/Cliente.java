@@ -54,7 +54,7 @@ public class Cliente extends EntidadeBaseInteger {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @NotBlank
+    @NotNull
     @CPF
     @Column(length = 14, nullable = false)
     private String cpf;
