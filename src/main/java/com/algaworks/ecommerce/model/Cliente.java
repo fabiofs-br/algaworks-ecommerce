@@ -20,8 +20,12 @@ import jakarta.persistence.StoredProcedureParameter;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,9 +50,12 @@ import java.util.Map;
 )
 public class Cliente extends EntidadeBaseInteger {
 
+    @NotBlank
     @Column(length = 100, nullable = false)
     private String nome;
 
+    @NotBlank
+    @CPF
     @Column(length = 14, nullable = false)
     private String cpf;
 
@@ -63,10 +70,12 @@ public class Cliente extends EntidadeBaseInteger {
     @Transient
     private String primeiroNome;
 
+    @NotNull
     @Column(table = "cliente_detalhe", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
 
+    @Past
     @Column(name = "data_nascimento" ,table = "cliente_detalhe")
     private LocalDate dataNascimento;
 

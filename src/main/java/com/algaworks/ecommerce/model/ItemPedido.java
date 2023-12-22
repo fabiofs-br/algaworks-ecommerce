@@ -1,6 +1,5 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -12,6 +11,8 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.SqlResultSetMappings;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,19 +33,25 @@ public class ItemPedido {
     @EmbeddedId
     private ItemPedidoId id;
 
+    @NotNull
     @MapsId("pedidoId")
     @ManyToOne(optional = false)
     @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
     private Pedido pedido;
 
+    @NotNull
     @MapsId("produtoId")
     @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_item_pedido_produto"))
     private Produto produto;
 
+    @NotNull
+    @Positive
     @Column(name = "preco_produto", nullable = false)
     private BigDecimal precoProduto;
 
+    @NotNull
+    @Positive
     @Column(nullable = false)
     private Integer quantidade;
 
