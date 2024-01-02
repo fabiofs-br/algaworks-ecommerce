@@ -2,6 +2,8 @@ package com.algaworks.ecommerce.cache;
 
 import com.algaworks.ecommerce.model.Pedido;
 import jakarta.persistence.Cache;
+import jakarta.persistence.CacheRetrieveMode;
+import jakarta.persistence.CacheStoreMode;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -9,6 +11,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CacheTest {
 
@@ -22,6 +27,36 @@ public class CacheTest {
     @AfterClass
     public static void tearDownAfterClass() {
         entityManagerFactory.close();
+    }
+
+    @Test
+    public void controlarCacheDinamicamente() {
+        // jakarta.persistence.cache.retrieveMode CacheRetrieveMode
+        // jakarta.persistence.cache.storeMode CacheStoreMode
+
+        Cache cache = entityManagerFactory.getCache();
+
+        System.out.println("Buscando todos os pedidos..........................");
+        EntityManager entityManager1 = entityManagerFactory.createEntityManager();
+        entityManager1.setProperty("jakarta.persistence.cache.storeMode", CacheStoreMode.BYPASS);
+        entityManager1
+                .createQuery("select p from Pedido p", Pedido.class)
+                .setHint("jakarta.persistence.cache.storeMode", CacheStoreMode.USE)
+                .getResultList();
+
+        System.out.println("Buscando o pedido de ID igual a 2..................");
+        EntityManager entityManager2 = entityManagerFactory.createEntityManager();
+        Map<String, Object> propriedades = new HashMap<>();
+//        propriedades.put("jakarta.persistence.cache.storeMode", CacheStoreMode.BYPASS);
+//        propriedades.put("jakarta.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        entityManager2.find(Pedido.class, 2, propriedades);
+
+        System.out.println("Buscando todos os pedidos (de novo)................");
+        EntityManager entityManager3 = entityManagerFactory.createEntityManager();
+        entityManager3
+                .createQuery("select p from Pedido p", Pedido.class)
+//                .setHint("jakarta.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS)
+                .getResultList();
     }
 
     @Test
