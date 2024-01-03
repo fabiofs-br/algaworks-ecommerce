@@ -11,6 +11,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.SqlResultSetMappings;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.EqualsAndHashCode;
@@ -29,6 +30,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
+
+    @Version
+    private Integer versao;
 
     @EmbeddedId
     private ItemPedidoId id;
