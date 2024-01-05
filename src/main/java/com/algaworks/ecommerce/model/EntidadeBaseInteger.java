@@ -15,12 +15,12 @@ import lombok.Setter;
 @MappedSuperclass
 public class EntidadeBaseInteger {
 
-    @Version
-    private Integer versao;
-
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Version
+    private Integer versao;
 
 }
