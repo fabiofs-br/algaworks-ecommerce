@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.Date;
 
 @Getter
@@ -27,6 +29,7 @@ public class NotaFiscal  extends EntidadeBaseInteger {
     @NotEmpty
     @Lob
     @Column(length = 1000, nullable = false)
+    @JdbcTypeCode(Types.VARBINARY)
     private byte[] xml;
 
     @PastOrPresent
