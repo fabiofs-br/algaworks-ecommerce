@@ -5,6 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,5 +23,8 @@ public class EntidadeBaseInteger {
 
     @Version
     private Integer versao;
+
+    @NotBlank
+    private String tenant;
 
 }
