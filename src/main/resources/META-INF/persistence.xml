@@ -8,16 +8,18 @@
         <mapping-file>META-INF/consultas/produto.xml</mapping-file>
         <mapping-file>META-INF/consultas/categoria.xml</mapping-file>
 
-        <shared-cache-mode>ALL</shared-cache-mode>
+<!--        <shared-cache-mode>ALL</shared-cache-mode>-->
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
         <validation-mode>CALLBACK</validation-mode>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:postgresql://localhost/algaworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
-            <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="postgres" />
-            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+                      value="jdbc:mysql://localhost/algaworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
+            <property name="jakarta.persistence.jdbc.user" value="root" />
+            <property name="jakarta.persistence.jdbc.password" value="" />
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
             <property name="jakarta.persistence.schema-generation.database.action"
                       value="drop-and-create"/>
@@ -38,7 +40,9 @@
 
             <property name="jakarta.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="eclipselink.logging.level" value="FINE"/>
+
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />-->
 
 <!--            <property name="hibernate.multiTenancy" value="DATABASE" />-->
 <!--            <property name="hibernate.tenant_identifier_resolver"-->
@@ -46,16 +50,16 @@
 <!--            <property name="hibernate.multi_tenant_connection_provider"-->
 <!--                      value="com.algaworks.ecommerce.hibernate.EcmMachineMultiTenantConnectionProvider"/>-->
 
-            <property name="hibernate.hikari.maximumPoolSize" value="16" />
-            <property name="hibernate.connection.provider_class"
-                      value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+<!--            <property name="hibernate.hikari.maximumPoolSize" value="16" />-->
+<!--            <property name="hibernate.connection.provider_class"-->
+<!--                      value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />-->
 
-            <property name="hibernate.cache.region.factory_class" value="jcache" />
-            <property name="hibernate.jakarta.cache.provider" value="org.ehcache.jsr107.EhcacheCachingProvider" />
-            <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
+<!--            <property name="hibernate.cache.region.factory_class" value="jcache" />-->
+<!--            <property name="hibernate.jakarta.cache.provider" value="org.ehcache.jsr107.EhcacheCachingProvider" />-->
+<!--            <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>-->
 
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="false" />
+<!--            <property name="hibernate.show_sql" value="true" />-->
+<!--            <property name="hibernate.format_sql" value="false" />-->
         </properties>
     </persistence-unit>
 </persistence>
