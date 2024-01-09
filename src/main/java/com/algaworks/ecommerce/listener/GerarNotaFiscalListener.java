@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.listener;
 
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.service.NotaFiscalService;
+
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
@@ -16,5 +17,4 @@ public class GerarNotaFiscalListener {
             notaFiscalService.gerar(pedido);
         }
     }
-
 }

@@ -1,34 +1,35 @@
 package com.algaworks.ecommerce.concorrencia;
 
 import com.algaworks.ecommerce.model.Produto;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.Persistence;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-
 import java.util.List;
 
 public class LockPessimistaTest {
 
     protected static EntityManagerFactory entityManagerFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Ecommerce-PU");
+        entityManagerFactory = Persistence
+                .createEntityManagerFactory("Ecommerce-PU");
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() {
         entityManagerFactory.close();
     }
 
     private static void log(Object obj, Object... args) {
         System.out.println(
-                String.format("LOG " + System.currentTimeMillis() + "] " + obj, args)
+                String.format("[LOG " + System.currentTimeMillis() + "] " + obj, args)
         );
     }
 
@@ -53,13 +54,14 @@ public class LockPessimistaTest {
                     .createQuery("select p from Produto p where p.id in (3,4,5)")
                     .setLockMode(LockModeType.PESSIMISTIC_READ)
                     .getResultList();
+
             Produto produto = lista
                     .stream()
                     .filter(p -> p.getId().equals(3))
                     .findFirst()
                     .get();
 
-            log("Runnable 01 vai alterar o produto 1.");
+            log("Runnable 01 vai alterar o produto de ID igual a 1.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 01 vai esperar por 3 segundo(s).");
@@ -81,9 +83,10 @@ public class LockPessimistaTest {
             entityManager2.getTransaction().begin();
 
             log("Runnable 02 vai carregar o produto 2.");
-            Produto produto = entityManager2.find(Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
+            Produto produto = entityManager2.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
 
-            log("Runnable 02 vai alterar o produto 1.");
+            log("Runnable 02 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 02 vai esperar por 1 segundo(s).");
@@ -131,9 +134,10 @@ public class LockPessimistaTest {
             entityManager1.getTransaction().begin();
 
             log("Runnable 01 vai carregar o produto 1.");
-            Produto produto = entityManager1.find(Produto.class, 1, LockModeType.PESSIMISTIC_READ);
+            Produto produto = entityManager1.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_READ);
 
-            log("Runnable 01 vai alterar o produto 1.");
+            log("Runnable 01 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 01 vai esperar por 3 segundo(s).");
@@ -155,9 +159,10 @@ public class LockPessimistaTest {
             entityManager2.getTransaction().begin();
 
             log("Runnable 02 vai carregar o produto 2.");
-            Produto produto = entityManager2.find(Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
+            Produto produto = entityManager2.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
 
-            log("Runnable 02 vai alterar o produto 1.");
+            log("Runnable 02 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 02 vai esperar por 1 segundo(s).");
@@ -205,9 +210,10 @@ public class LockPessimistaTest {
             entityManager1.getTransaction().begin();
 
             log("Runnable 01 vai carregar o produto 1.");
-            Produto produto = entityManager1.find(Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
+            Produto produto = entityManager1.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
 
-            log("Runnable 01 vai alterar o produto 1.");
+            log("Runnable 01 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 01 vai esperar por 3 segundo(s).");
@@ -229,9 +235,10 @@ public class LockPessimistaTest {
             entityManager2.getTransaction().begin();
 
             log("Runnable 02 vai carregar o produto 2.");
-            Produto produto = entityManager2.find(Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
+            Produto produto = entityManager2.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_WRITE);
 
-            log("Runnable 02 vai alterar o produto 1.");
+            log("Runnable 02 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 02 vai esperar por 1 segundo(s).");
@@ -279,9 +286,10 @@ public class LockPessimistaTest {
             entityManager1.getTransaction().begin();
 
             log("Runnable 01 vai carregar o produto 1.");
-            Produto produto = entityManager1.find(Produto.class, 1, LockModeType.PESSIMISTIC_READ);
+            Produto produto = entityManager1.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_READ);
 
-            log("Runnable 01 vai alterar o produto 1.");
+            log("Runnable 01 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 01 vai esperar por 3 segundo(s).");
@@ -303,9 +311,10 @@ public class LockPessimistaTest {
             entityManager2.getTransaction().begin();
 
             log("Runnable 02 vai carregar o produto 2.");
-            Produto produto = entityManager2.find(Produto.class, 1, LockModeType.PESSIMISTIC_READ);
+            Produto produto = entityManager2.find(
+                    Produto.class, 1, LockModeType.PESSIMISTIC_READ);
 
-            log("Runnable 02 vai alterar o produto 1.");
+            log("Runnable 02 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
 
             log("Runnable 02 vai esperar por 1 segundo(s).");
@@ -341,5 +350,4 @@ public class LockPessimistaTest {
 
         log("Encerrando método de teste.");
     }
-
 }

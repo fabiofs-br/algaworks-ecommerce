@@ -20,13 +20,12 @@ public class ListenersTest extends EntityManagerTest {
     }
 
     @Test
-    public void acionarListeners() {
+    public void acionarCallbacks() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
 
         Pedido pedido = new Pedido();
-
-        pedido.setCliente(cliente);
         pedido.setDataCriacao(LocalDateTime.now());
+        pedido.setCliente(cliente);
         pedido.setStatus(StatusPedido.AGUARDANDO);
         pedido.setTotal(BigDecimal.TEN);
 
@@ -44,5 +43,4 @@ public class ListenersTest extends EntityManagerTest {
         Assertions.assertNotNull(pedidoVerificacao.getDataCriacao());
         Assertions.assertNotNull(pedidoVerificacao.getDataUltimaAtualizacao());
     }
-
 }

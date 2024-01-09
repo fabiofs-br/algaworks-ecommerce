@@ -26,7 +26,7 @@ public class FlushTest extends EntityManagerTest {
                 throw new RuntimeException("Pedido ainda não foi pago.");
             }
 
-            // Uma consulta obriga o JPA a sincronizar o que ele tem na memória
+//            Uma consulta obriga o JPA a sincronizar o que ele tem na memória (sem usar o flush explicitamente).
 //            Pedido pedidoPago = entityManager
 //                    .createQuery("select p from Pedido p where p.id = 1", Pedido.class)
 //                    .getSingleResult();
@@ -38,5 +38,4 @@ public class FlushTest extends EntityManagerTest {
             throw e;
         }
     }
-
 }

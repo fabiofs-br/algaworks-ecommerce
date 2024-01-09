@@ -4,11 +4,11 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class BasicoJPQLTest extends EntityManagerTest {
@@ -28,8 +28,8 @@ public class BasicoJPQLTest extends EntityManagerTest {
     }
 
     @Test
-    public void ordenarResultado() {
-        String jpql = "select c from Cliente c order by c.nome desc"; // desc
+    public void ordenarResultados() {
+        String jpql = "select c from Cliente c order by c.nome asc"; // desc
 
         TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
 
@@ -45,7 +45,6 @@ public class BasicoJPQLTest extends EntityManagerTest {
 
         TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(jpql, ProdutoDTO.class);
         List<ProdutoDTO> lista = typedQuery.getResultList();
-
         Assertions.assertFalse(lista.isEmpty());
 
         lista.forEach(p -> System.out.println(p.getId() + ", " + p.getNome()));
@@ -83,8 +82,6 @@ public class BasicoJPQLTest extends EntityManagerTest {
 
         TypedQuery<Pedido> typedQuery = entityManager
                 .createQuery("select p from Pedido p where p.id = 1", Pedido.class);
-
-        // select p.* from pedido p where p.id = 1
 
         Pedido pedido = typedQuery.getSingleResult();
         Assertions.assertNotNull(pedido);

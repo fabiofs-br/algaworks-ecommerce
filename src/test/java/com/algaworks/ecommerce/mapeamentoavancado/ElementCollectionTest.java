@@ -54,7 +54,9 @@ public class ElementCollectionTest extends EntityManagerTest {
         entityManager.clear();
 
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-        Assertions.assertEquals("fernando@email.com", clienteVerificacao.getContatos().get("email"));
+        Assertions.assertEquals(
+                "fernando@email.com", clienteVerificacao.getContatos().get("email"));
     }
+
 
 }

@@ -8,7 +8,7 @@ public class BooleanToSimNaoConverter implements AttributeConverter<Boolean, Str
 
     @Override
     public String convertToDatabaseColumn(Boolean attribute) {
-        return Boolean.TRUE.equals(attribute) ? "SIM" : "NÃO";
+        return Boolean.TRUE.equals(attribute) ? "SIM" : "NAO";
     }
 
     @Override

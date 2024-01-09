@@ -32,5 +32,4 @@ public class GerenciamentoTransacoesTest extends EntityManagerTest {
             throw new RuntimeException("Pedido ainda não foi pago.");
         }
     }
-
 }

@@ -4,11 +4,12 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.NotaFiscal;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.StatusPagamento;
-import jakarta.persistence.TemporalType;
-import jakarta.persistence.TypedQuery;
+import com.algaworks.ecommerce.model.StatusPedido;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
 
@@ -37,5 +38,4 @@ public class PassandoParametrosTest extends EntityManagerTest {
         List<Pedido> lista = typedQuery.getResultList();
         Assertions.assertTrue(lista.size() == 1);
     }
-
 }

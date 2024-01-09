@@ -1,12 +1,11 @@
 package com.algaworks.ecommerce.relacionamentos;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Categoria;
 import com.algaworks.ecommerce.model.Pedido;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class RemovendoEntidadesReferenciasTest extends EntityManagerTest {
+public class RemovendoEntidadesReferenciadasTest extends EntityManagerTest {
 
     @Test
     public void removerEntidadeRelacionada() {
@@ -24,5 +23,4 @@ public class RemovendoEntidadesReferenciasTest extends EntityManagerTest {
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
         Assertions.assertNull(pedidoVerificacao);
     }
-
 }

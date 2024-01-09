@@ -18,7 +18,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         Cliente cliente = entityManager.find(Cliente.class, 1);
 
         EnderecoEntregaPedido endereco = new EnderecoEntregaPedido();
-        endereco.setCep("00000-000");
+        endereco.setCep("00000-00");
         endereco.setLogradouro("Rua das Laranjeiras");
         endereco.setNumero("123");
         endereco.setBairro("Centro");
@@ -26,7 +26,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         endereco.setEstado("MG");
 
         Pedido pedido = new Pedido();
-//        pedido.setId(1);  // Comentada porque estamos utilizando IDENTITY
+        // pedido.setId(1); Comentado porque estamos utilizando IDENTITY
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO);
         pedido.setTotal(new BigDecimal(1000));
@@ -37,10 +37,11 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         entityManager.persist(pedido);
         entityManager.getTransaction().commit();
 
+        entityManager.clear();
+
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
         Assertions.assertNotNull(pedidoVerificacao);
         Assertions.assertNotNull(pedidoVerificacao.getEnderecoEntrega());
         Assertions.assertNotNull(pedidoVerificacao.getEnderecoEntrega().getCep());
     }
-
 }

@@ -1,13 +1,11 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter
@@ -39,8 +37,7 @@ public class EnderecoEntregaPedido {
     private String cidade;
 
     @NotBlank
-    @Size(min = 2, max = 2)
+    @Size(max = 2, min = 2)
     @Column(length = 2)
     private String estado;
-
 }

@@ -1,22 +1,22 @@
 package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import jakarta.persistence.TypedQuery;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
-    public void usarExpressaoIn() {
+    public void usarExpressaoIN() {
         Cliente cliente1 = new Cliente(); // entityManager.find(Cliente.class, 1);
         cliente1.setId(1);
 
@@ -38,16 +38,15 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
     public void usarExpressaoCase() {
         String jpql = "select p.id, " +
                 " case type(p.pagamento) " +
-                "   when PagamentoBoleto then 'Pago com boleto' " +
-                "   when PagamentoCartao then 'Pago com cartão'" +
-                "   else 'Não pago ainda.' " +
-                " end" +
+                "       when PagamentoBoleto then 'Pago com boleto' " +
+                "       when PagamentoCartao then 'Pago com cartão' " +
+                "       else 'Não pago ainda.' " +
+                " end " +
                 " from Pedido p";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 
         List<Object[]> lista = typedQuery.getResultList();
-
         Assertions.assertFalse(lista.isEmpty());
 
         lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
@@ -102,8 +101,7 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
     public void usarIsNull() {
-        // cast as string para evitar erro
-        String jpql = "select p from Produto p where cast(p.foto as string) is null";
+        String jpql = "select p from Produto p where p.foto is null";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 
@@ -121,4 +119,14 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
         Assertions.assertFalse(lista.isEmpty());
     }
 
+    @Test
+    public void usarExpressaoCondicionalLike() {
+        String jpql = "select c from Cliente c where c.nome like concat('%', :nome, '%')";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        typedQuery.setParameter("nome", "a");
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assertions.assertFalse(lista.isEmpty());
+    }
 }

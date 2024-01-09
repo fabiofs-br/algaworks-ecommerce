@@ -2,7 +2,6 @@ package com.algaworks.ecommerce.util;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,5 @@ public class ExecutarDDL {
                 .createEntityManagerFactory("Ecommerce-PU", propriedades);
 
         entityManagerFactory.close();
-
     }
-
 }

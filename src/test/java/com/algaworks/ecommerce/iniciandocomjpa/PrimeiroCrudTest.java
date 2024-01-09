@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.iniciandocomjpa;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.SexoCliente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 //        cliente.setId(3);
         cliente.setNome("José Lucas");
         cliente.setSexo(SexoCliente.MASCULINO);
-        cliente.setCpf("'333");
+        cliente.setCpf("333");
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
@@ -28,19 +29,19 @@ public class PrimeiroCrudTest extends EntityManagerTest {
     }
 
     @Test
-    public void buscarPorIdentificacao() {
-        Cliente cliente = entityManager.find(Cliente.class, 1);
+    public void busarPorIdentificador() {
+        Produto produto = entityManager.find(Produto.class, 1);
 
-        Assertions.assertNotNull(cliente);
-        Assertions.assertEquals("Fernando Medeiros", cliente.getNome());
+        Assertions.assertNotNull(produto);
+        Assertions.assertEquals("Kindle", produto.getNome());
     }
 
     @Test
-    public void atualizarObjeto() {
+    public void atualizarRegistro() {
         Cliente cliente = new Cliente();
 
         cliente.setId(1);
-        cliente.setNome("Arnaldo Gontijo");
+        cliente.setNome("Fernando Medeiros Silva");
         cliente.setCpf("000");
         cliente.setSexo(SexoCliente.MASCULINO);
 
@@ -51,7 +52,7 @@ public class PrimeiroCrudTest extends EntityManagerTest {
         entityManager.clear();
 
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-        Assertions.assertEquals("Arnaldo Gontijo", clienteVerificacao.getNome());
+        Assertions.assertEquals("Fernando Medeiros Silva", clienteVerificacao.getNome());
     }
 
     @Test
@@ -62,8 +63,9 @@ public class PrimeiroCrudTest extends EntityManagerTest {
         entityManager.remove(cliente);
         entityManager.getTransaction().commit();
 
-        Cliente clienteVerificacao = entityManager.find(Cliente.class, 2);
+        entityManager.clear();
+
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
         Assertions.assertNull(clienteVerificacao);
     }
-
 }

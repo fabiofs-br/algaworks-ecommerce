@@ -13,7 +13,7 @@ import java.util.Date;
 public class SalvandoArquivosTest extends EntityManagerTest {
 
     @Test
-    public void impedirInsercaoDaColunaAtualizacao() {
+    public void salvarFotoProduto(){
         entityManager.getTransaction().begin();
         Produto produto = entityManager.find(Produto.class, 1);
         produto.setFoto(carregarFoto());
@@ -21,7 +21,7 @@ public class SalvandoArquivosTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Produto produtoVerificacao = entityManager.find(Produto.class, 1);
         Assertions.assertNotNull(produtoVerificacao.getFoto());
         Assertions.assertTrue(produtoVerificacao.getFoto().length > 0);
     }
@@ -45,13 +45,16 @@ public class SalvandoArquivosTest extends EntityManagerTest {
         Assertions.assertNotNull(notaFiscalVerificacao.getXml());
         Assertions.assertTrue(notaFiscalVerificacao.getXml().length > 0);
 
-//        try {
-//            OutputStream out = new FileOutputStream(Files.createFile(Paths.get(
-//                    System.getProperty("user.home") + "/xml.xml")).toFile());
-//            out.write(notaFiscalVerificacao.getXml());
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
+        /*
+        try {
+            OutputStream out = new FileOutputStream(
+                    Files.createFile(Paths.get(
+                            System.getProperty("user.home") + "/xml.xml")).toFile());
+            out.write(notaFiscalVerificacao.getXml());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        */
     }
 
     private static byte[] carregarFoto() {
@@ -69,5 +72,4 @@ public class SalvandoArquivosTest extends EntityManagerTest {
             throw new RuntimeException(e);
         }
     }
-
 }

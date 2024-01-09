@@ -2,27 +2,38 @@ package com.algaworks.ecommerce.criteria;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.dto.ProdutoDTO;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.Cliente_;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import jakarta.persistence.Tuple;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.Tuple;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class BasicoCriteriaTest extends EntityManagerTest {
 
     @Test
+    public void usarDistinct() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+        root.join(Pedido_.itens);
+
+        criteriaQuery.select(root);
+        criteriaQuery.distinct(true);
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> lista = typedQuery.getResultList();
+
+        lista.forEach(p -> System.out.println("ID: " + p.getId()));
+    }
+
+    @Test
     public void ordenarResultados() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
 
         criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Cliente_.nome)));
@@ -41,7 +52,8 @@ public class BasicoCriteriaTest extends EntityManagerTest {
         CriteriaQuery<ProdutoDTO> criteriaQuery = criteriaBuilder.createQuery(ProdutoDTO.class);
         Root<Produto> root = criteriaQuery.from(Produto.class);
 
-        criteriaQuery.select(criteriaBuilder.construct(ProdutoDTO.class, root.get("id"), root.get("nome")));
+        criteriaQuery.select(criteriaBuilder
+                .construct(ProdutoDTO.class, root.get("id"), root.get("nome")));
 
         TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(criteriaQuery);
         List<ProdutoDTO> lista = typedQuery.getResultList();
@@ -105,7 +117,6 @@ public class BasicoCriteriaTest extends EntityManagerTest {
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), 1));
 
         TypedQuery<BigDecimal> typedQuery = entityManager.createQuery(criteriaQuery);
-
         BigDecimal total = typedQuery.getSingleResult();
         Assertions.assertEquals(new BigDecimal("2398.00"), total);
     }
@@ -120,14 +131,13 @@ public class BasicoCriteriaTest extends EntityManagerTest {
 
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), 1));
 
-//        String jpql = "select p from Pedido p where p.id = 1";
+        //String jpql = "select p from Pedido p where p.id = 1";
 
         TypedQuery<Pedido> typedQuery = entityManager
-//                .createQuery(jpql, Pedido.class);
+                //.createQuery(jpql, Pedido.class);
                 .createQuery(criteriaQuery);
 
         Pedido pedido = typedQuery.getSingleResult();
         Assertions.assertNotNull(pedido);
     }
-
 }

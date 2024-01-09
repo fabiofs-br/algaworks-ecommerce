@@ -5,17 +5,18 @@ import com.algaworks.ecommerce.model.Categoria;
 import com.algaworks.ecommerce.model.Categoria_;
 import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.Produto_;
-import jakarta.persistence.Query;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaDelete;
-import jakarta.persistence.criteria.CriteriaUpdate;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.Subquery;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.Query;
+import jakarta.persistence.criteria.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
-
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OperacoesEmLoteCriteriaTest extends EntityManagerTest {
 
@@ -29,7 +30,7 @@ public class OperacoesEmLoteCriteriaTest extends EntityManagerTest {
         CriteriaDelete<Produto> criteriaDelete = criteriaBuilder.createCriteriaDelete(Produto.class);
         Root<Produto> root = criteriaDelete.from(Produto.class);
 
-        criteriaDelete.where(criteriaBuilder.between(root.get(Produto_.id),5, 12));
+        criteriaDelete.where(criteriaBuilder.between(root.get(Produto_.id), 5, 12));
 
         Query query = entityManager.createQuery(criteriaDelete);
         query.executeUpdate();
@@ -61,5 +62,4 @@ public class OperacoesEmLoteCriteriaTest extends EntityManagerTest {
 
         entityManager.getTransaction().commit();
     }
-
 }

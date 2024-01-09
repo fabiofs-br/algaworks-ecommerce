@@ -1,14 +1,7 @@
 package com.algaworks.ecommerce.operacoesemcascata;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Categoria;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.ItemPedido;
-import com.algaworks.ecommerce.model.ItemPedidoId;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import com.algaworks.ecommerce.model.SexoCliente;
-import com.algaworks.ecommerce.model.StatusPedido;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +12,7 @@ import java.util.Arrays;
 
 public class CascadeTypePersistTest extends EntityManagerTest {
 
-//    @Test
+    // @Test
     public void persistirProdutoComCategoria() {
         Produto produto = new Produto();
         produto.setDataCriacao(LocalDateTime.now());
@@ -42,7 +35,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         Assertions.assertNotNull(categoriaVerificacao);
     }
 
-//    @Test
+    // @Test
     public void persistirPedidoComItens() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
@@ -86,7 +79,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
 
         ItemPedido itemPedido = new ItemPedido();
         itemPedido.setId(new ItemPedidoId());
-        itemPedido.setPedido(pedido); // Não é necessário CascadeType.PERSIST porque possui @MapsId
+        itemPedido.setPedido(pedido);// Não é necessário CascadeType.PERSIST porque possui @MapsId.
         itemPedido.setProduto(produto);
         itemPedido.setQuantidade(1);
         itemPedido.setPrecoProduto(produto.getPreco());
@@ -101,7 +94,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         Assertions.assertNotNull(pedidoVerificacao);
     }
 
-//    @Test
+    // @Test
     public void persistirPedidoComCliente() {
         Cliente cliente = new Cliente();
         cliente.setDataNascimento(LocalDate.of(1980, 1, 1));
@@ -111,7 +104,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
 
         Pedido pedido = new Pedido();
         pedido.setDataCriacao(LocalDateTime.now());
-        pedido.setCliente(cliente);  // CascadeType.PERSIST
+        pedido.setCliente(cliente); // CascadeType.PERSIST
         pedido.setTotal(BigDecimal.ZERO);
         pedido.setStatus(StatusPedido.AGUARDANDO);
 
@@ -121,7 +114,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Cliente clienteVerificacao = entityManager.find(Cliente.class, pedido.getId());
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
         Assertions.assertNotNull(clienteVerificacao);
     }
 }

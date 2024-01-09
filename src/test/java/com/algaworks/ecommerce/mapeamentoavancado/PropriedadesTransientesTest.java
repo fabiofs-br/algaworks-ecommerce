@@ -13,6 +13,4 @@ public class PropriedadesTransientesTest extends EntityManagerTest {
 
         Assertions.assertEquals("Fernando", cliente.getPrimeiroNome());
     }
-
-
 }

@@ -17,11 +17,11 @@ public class ChaveCompostaTest extends EntityManagerTest {
         Produto produto = entityManager.find(Produto.class, 1);
 
         Pedido pedido = new Pedido();
+        pedido.setDataCriacao(LocalDateTime.now());
         pedido.setCliente(cliente);
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO);
         pedido.setTotal(produto.getPreco());
-        pedido.setDataCriacao(LocalDateTime.now());
 
         ItemPedido itemPedido = new ItemPedido();
 //        itemPedido.setPedidoId(pedido.getId()); IdClass
@@ -45,10 +45,10 @@ public class ChaveCompostaTest extends EntityManagerTest {
     }
 
     @Test
-    public void buscarItem() {
-        ItemPedido itemPedido = entityManager.find(ItemPedido.class, new ItemPedidoId(1,1));
+    public void bucarItem() {
+        ItemPedido itemPedido = entityManager.find(
+                ItemPedido.class, new ItemPedidoId(1, 1));
 
         Assertions.assertNotNull(itemPedido);
     }
-
 }

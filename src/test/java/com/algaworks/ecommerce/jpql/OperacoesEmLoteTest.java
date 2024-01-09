@@ -1,16 +1,18 @@
 package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
-import jakarta.persistence.Query;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class OperacoesEmLoteTest extends EntityManagerTest {
@@ -33,12 +35,11 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
     public void atualizarEmLote() {
         entityManager.getTransaction().begin();
 
-        String jpql = "update Produto p set p.preco = p.preco + (p.preco * :valor) " +
+        String jpql = "update Produto p set p.preco = p.preco + (p.preco * 0.1) " +
                 " where exists (select 1 from p.categorias c2 where c2.id = :categoria)";
 
         Query query = entityManager.createQuery(jpql);
         query.setParameter("categoria", 2);
-        query.setParameter("valor", new BigDecimal("0.1"));
         query.executeUpdate();
 
         entityManager.getTransaction().commit();
@@ -46,7 +47,8 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
 
     @Test
     public void inserirEmLote() throws IOException {
-        InputStream in = OperacoesEmLoteTest.class.getClassLoader().getResourceAsStream("produtos/importar.txt");
+        InputStream in = OperacoesEmLoteTest.class.getClassLoader()
+                .getResourceAsStream("produtos/importar.txt");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
@@ -74,11 +76,10 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
 
                 contadorInsercoes = 0;
 
-                System.out.println("---------------------------------------");
+                System.out.println("---------------------------------");
             }
         }
 
         entityManager.getTransaction().commit();
     }
-
 }

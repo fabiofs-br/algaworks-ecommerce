@@ -21,5 +21,4 @@ public class EstrategiaChavePrimariaTest extends EntityManagerTest {
         Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
         Assertions.assertNotNull(categoriaVerificacao);
     }
-
 }

@@ -1,9 +1,10 @@
 package com.algaworks.ecommerce;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class EntityManagerFactoryTest {
 
@@ -11,7 +12,8 @@ public class EntityManagerFactoryTest {
 
     @BeforeAll
     public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Ecommerce-PU");
+        entityManagerFactory = Persistence
+                .createEntityManagerFactory("Ecommerce-PU");
     }
 
     @AfterAll
@@ -21,7 +23,7 @@ public class EntityManagerFactoryTest {
 
     public static void log(Object obj, Object... args) {
         System.out.println(
-                String.format("[LOG " +  System.currentTimeMillis() + "] " + obj, args)
+                String.format("[LOG " + System.currentTimeMillis() + "] " + obj, args)
         );
     }
 
@@ -30,5 +32,4 @@ public class EntityManagerFactoryTest {
             Thread.sleep(segundos * 1000);
         } catch (InterruptedException e) {}
     }
-
 }

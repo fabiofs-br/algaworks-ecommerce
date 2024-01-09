@@ -1,43 +1,38 @@
 package com.algaworks.ecommerce.cache;
 
 import com.algaworks.ecommerce.model.Pedido;
-import jakarta.persistence.Cache;
-import jakarta.persistence.CacheRetrieveMode;
-import jakarta.persistence.CacheStoreMode;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class CacheTest {
 
     protected static EntityManagerFactory entityManagerFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Ecommerce-PU");
+        entityManagerFactory = Persistence
+                .createEntityManagerFactory("Ecommerce-PU");
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() {
         entityManagerFactory.close();
     }
 
-    private void esperar(int segundos) {
+    private static void esperar(int segundos) {
         try {
             Thread.sleep(segundos * 1000);
         } catch (InterruptedException e) {}
     }
 
-    private void log(Object obj) {
-        System.out.println("LOG " + System.currentTimeMillis() + "] " + obj);
+    private static void log(Object obj) {
+        System.out.println("[LOG " + System.currentTimeMillis() + "] " + obj);
     }
 
     @Test
@@ -78,6 +73,7 @@ public class CacheTest {
                 .createQuery("select p from Pedido p", Pedido.class)
                 .setHint("jakarta.persistence.cache.storeMode", CacheStoreMode.USE)
                 .getResultList();
+        entityManager1.close();
 
         System.out.println("Buscando o pedido de ID igual a 2..................");
         EntityManager entityManager2 = entityManagerFactory.createEntityManager();
@@ -85,16 +81,14 @@ public class CacheTest {
 //        propriedades.put("jakarta.persistence.cache.storeMode", CacheStoreMode.BYPASS);
 //        propriedades.put("jakarta.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         entityManager2.find(Pedido.class, 2, propriedades);
+        entityManager2.close();
 
-        System.out.println("Buscando todos os pedidos (de novo)................");
+        System.out.println("Buscando todos os pedidos (de novo)..........................");
         EntityManager entityManager3 = entityManagerFactory.createEntityManager();
         entityManager3
                 .createQuery("select p from Pedido p", Pedido.class)
 //                .setHint("jakarta.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS)
                 .getResultList();
-
-        entityManager1.close();
-        entityManager2.close();
         entityManager3.close();
     }
 
@@ -105,7 +99,9 @@ public class CacheTest {
         EntityManager entityManager1 = entityManagerFactory.createEntityManager();
 
         System.out.println("Buscando a partir da instância 1:");
-        entityManager1.createQuery("select p from Pedido p", Pedido.class).getResultList();
+        entityManager1
+                .createQuery("select p from Pedido p", Pedido.class)
+                .getResultList();
 
         Assertions.assertTrue(cache.contains(Pedido.class, 1));
 
@@ -113,13 +109,15 @@ public class CacheTest {
     }
 
     @Test
-    public void VerificarSeEstaNoCache() {
+    public void verificarSeEstaNoCache() {
         Cache cache = entityManagerFactory.getCache();
 
         EntityManager entityManager1 = entityManagerFactory.createEntityManager();
 
         System.out.println("Buscando a partir da instância 1:");
-        entityManager1.createQuery("select p from Pedido p", Pedido.class).getResultList();
+        entityManager1
+                .createQuery("select p from Pedido p", Pedido.class)
+                .getResultList();
 
         Assertions.assertTrue(cache.contains(Pedido.class, 1));
         Assertions.assertTrue(cache.contains(Pedido.class, 2));
@@ -135,9 +133,11 @@ public class CacheTest {
         EntityManager entityManager2 = entityManagerFactory.createEntityManager();
 
         System.out.println("Buscando a partir da instância 1:");
-        entityManager1.createQuery("select p from Pedido p", Pedido.class).getResultList();
+        entityManager1
+                .createQuery("select p from Pedido p", Pedido.class)
+                .getResultList();
 
-        System.out.println("Removendo do cache.");
+        System.out.println("Removendo do cache");
         cache.evictAll();
 //        cache.evict(Pedido.class);
 //        cache.evict(Pedido.class, 1);
@@ -156,7 +156,9 @@ public class CacheTest {
         EntityManager entityManager2 = entityManagerFactory.createEntityManager();
 
         System.out.println("Buscando a partir da instância 1:");
-        entityManager1.createQuery("select p from Pedido p", Pedido.class).getResultList();
+        entityManager1
+                .createQuery("select p from Pedido p", Pedido.class)
+                .getResultList();
 
         System.out.println("Buscando a partir da instância 2:");
         entityManager2.find(Pedido.class, 1);
@@ -179,5 +181,4 @@ public class CacheTest {
         entityManager1.close();
         entityManager2.close();
     }
-
 }

@@ -5,6 +5,9 @@ import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 public class AutoRelacionamentoTest extends EntityManagerTest {
 
     @Test
@@ -16,6 +19,7 @@ public class AutoRelacionamentoTest extends EntityManagerTest {
         categoria.setNome("Uniformes");
         categoria.setCategoriaPai(categoriaPai);
 
+
         entityManager.getTransaction().begin();
         entityManager.persist(categoriaPai);
         entityManager.persist(categoria);
@@ -26,8 +30,7 @@ public class AutoRelacionamentoTest extends EntityManagerTest {
         Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
         Assertions.assertNotNull(categoriaVerificacao.getCategoriaPai());
 
-        categoriaVerificacao = entityManager.find(Categoria.class, categoriaPai.getId());
-        Assertions.assertFalse(categoriaVerificacao.getCategorias().isEmpty());
+        Categoria categoriaPaiVerificacao = entityManager.find(Categoria.class, categoriaPai.getId());
+        Assertions.assertFalse(categoriaPaiVerificacao.getCategorias().isEmpty());
     }
-
 }

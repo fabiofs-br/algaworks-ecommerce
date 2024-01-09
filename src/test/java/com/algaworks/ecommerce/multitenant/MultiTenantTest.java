@@ -1,14 +1,15 @@
-//package com.algaworks.ecommerce.multitenant;
-//
-//import com.algaworks.ecommerce.EntityManagerFactoryTest;
+package com.algaworks.ecommerce.multitenant;
+
+import com.algaworks.ecommerce.EntityManagerFactoryTest;
 //import com.algaworks.ecommerce.hibernate.EcmCurrentTenantIdentifierResolver;
-//import com.algaworks.ecommerce.model.Produto;
-//import jakarta.persistence.EntityManager;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
-//
-//public class MultiTenantTest extends EntityManagerFactoryTest {
-//
+import com.algaworks.ecommerce.model.Produto;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import jakarta.persistence.EntityManager;
+
+public class MultiTenantTest extends EntityManagerFactoryTest {
+
 //    @Test
 //    public void usarAbordagemPorMaquina() {
 //        EcmCurrentTenantIdentifierResolver.setTenantIdentifier("algaworks_ecommerce");
@@ -38,5 +39,4 @@
 //        Assertions.assertEquals("Kindle Paperwhite", produto2.getNome());
 //        entityManager2.close();
 //    }
-//
-//}
+}

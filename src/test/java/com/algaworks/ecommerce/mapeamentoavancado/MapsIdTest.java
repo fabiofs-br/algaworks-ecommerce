@@ -1,17 +1,10 @@
 package com.algaworks.ecommerce.mapeamentoavancado;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.ItemPedido;
-import com.algaworks.ecommerce.model.ItemPedidoId;
-import com.algaworks.ecommerce.model.NotaFiscal;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import com.algaworks.ecommerce.model.StatusPedido;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -24,7 +17,7 @@ public class MapsIdTest extends EntityManagerTest {
         NotaFiscal notaFiscal = new NotaFiscal();
         notaFiscal.setPedido(pedido);
         notaFiscal.setDataEmissao(new Date());
-        notaFiscal.setXml(carregarNotaFiscal());
+        notaFiscal.setXml("<xml/>".getBytes());
 
         entityManager.getTransaction().begin();
         entityManager.persist(notaFiscal);
@@ -32,9 +25,9 @@ public class MapsIdTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        NotaFiscal notaFiscalVerificacao = entityManager.find(NotaFiscal.class, notaFiscal.getId());
-        Assertions.assertNotNull(notaFiscalVerificacao);
-        Assertions.assertEquals(pedido.getId(), notaFiscalVerificacao.getId());
+        NotaFiscal notaFiscalVarificacao = entityManager.find(NotaFiscal.class, notaFiscal.getId());
+        Assertions.assertNotNull(notaFiscalVarificacao);
+        Assertions.assertEquals(pedido.getId(), notaFiscalVarificacao.getId());
     }
 
     @Test
@@ -62,17 +55,8 @@ public class MapsIdTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        ItemPedido itemPedidoVerificacao = entityManager
-                .find(ItemPedido.class, new ItemPedidoId(pedido.getId(), produto.getId()));
+        ItemPedido itemPedidoVerificacao = entityManager.find(
+                ItemPedido.class, new ItemPedidoId(pedido.getId(), produto.getId()));
         Assertions.assertNotNull(itemPedidoVerificacao);
     }
-
-    private static byte[] carregarNotaFiscal() {
-        try {
-            return SalvandoArquivosTest.class.getResourceAsStream("/nota-fiscal.xml").readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

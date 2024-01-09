@@ -1,8 +1,9 @@
 package com.algaworks.ecommerce;
 
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+
+import jakarta.persistence.EntityManager;
 
 public class EntityManagerTest extends EntityManagerFactoryTest {
 
@@ -17,5 +18,4 @@ public class EntityManagerTest extends EntityManagerFactoryTest {
     public void tearDown() {
         entityManager.close();
     }
-
 }

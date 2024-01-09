@@ -1,31 +1,33 @@
 package com.algaworks.ecommerce.concorrencia;
 
 import com.algaworks.ecommerce.model.Produto;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 public class LockOtimistaTest {
 
     protected static EntityManagerFactory entityManagerFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Ecommerce-PU");
+        entityManagerFactory = Persistence
+                .createEntityManagerFactory("Ecommerce-PU");
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() {
         entityManagerFactory.close();
     }
 
     private static void log(Object obj, Object... args) {
         System.out.println(
-                String.format("LOG " + System.currentTimeMillis() + "] " + obj, args)
+                String.format("[LOG " + System.currentTimeMillis() + "] " + obj, args)
         );
     }
 
@@ -47,7 +49,7 @@ public class LockOtimistaTest {
             log("Runnable 01 vai esperar por 3 segundos.");
             esperar(3);
 
-            log("Runnable 01 vai alterar o produto 1.");
+            log("Runnable 01 vai alterar o produto.");
             produto.setDescricao("Descrição detalhada.");
 
             log("Runnable 01 vai confirmar a transação.");
@@ -62,10 +64,10 @@ public class LockOtimistaTest {
             log("Runnable 02 vai carregar o produto 1.");
             Produto produto = entityManager2.find(Produto.class, 1);
 
-            log("Runnable 02 vai esperar por 1 segundos.");
+            log("Runnable 02 vai esperar por 1 segundo.");
             esperar(1);
 
-            log("Runnable 02 vai alterar o produto 1.");
+            log("Runnable 02 vai alterar o produto.");
             produto.setDescricao("Descrição massa!");
 
             log("Runnable 02 vai confirmar a transação.");
@@ -94,5 +96,4 @@ public class LockOtimistaTest {
 
         log("Encerrando método de teste.");
     }
-
 }

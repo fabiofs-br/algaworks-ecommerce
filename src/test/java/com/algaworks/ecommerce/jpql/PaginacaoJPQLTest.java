@@ -2,13 +2,14 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Categoria;
-import jakarta.persistence.TypedQuery;
+import com.algaworks.ecommerce.model.Pedido;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
-public class PaginarJPQLTest extends EntityManagerTest {
+public class PaginacaoJPQLTest extends EntityManagerTest {
 
     @Test
     public void paginarResultados() {
@@ -25,5 +26,4 @@ public class PaginarJPQLTest extends EntityManagerTest {
 
         lista.forEach(c -> System.out.println(c.getId() + ", " + c.getNome()));
     }
-
 }

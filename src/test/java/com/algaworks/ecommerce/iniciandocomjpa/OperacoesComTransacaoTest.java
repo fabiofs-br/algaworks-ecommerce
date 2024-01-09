@@ -26,12 +26,12 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     }
 
     @Test
-    public void mostrarDiferencaPersistMerge() {
+    public void mostrarDifencaPersistMerge() {
         Produto produtoPersist = new Produto();
 
 //        produtoPersist.setId(5);
         produtoPersist.setNome("Smartphone One Plus");
-        produtoPersist.setDescricao("A processador mais rápido.");
+        produtoPersist.setDescricao("O processador mais rápido.");
         produtoPersist.setPreco(new BigDecimal(2000));
         produtoPersist.setDataCriacao(LocalDateTime.now());
 
@@ -44,6 +44,8 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
         Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produtoPersist.getId());
         Assertions.assertNotNull(produtoVerificacaoPersist);
+
+
 
         Produto produtoMerge = new Produto();
 
@@ -75,12 +77,12 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
-        produto = entityManager.merge(produto);
+        Produto produtoSalvo = entityManager.merge(produto);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
         Assertions.assertNotNull(produtoVerificacao);
     }
 
@@ -154,7 +156,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void abrirEFecharATransacao() {
-//        Produto produto = new Produto(); // Somente para o método não mostrar erros
+//        Produto produto = new Produto(); // Somente para o método não mostrar erros.
 
         entityManager.getTransaction().begin();
 
@@ -163,7 +165,5 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 //        entityManager.remove(produto);
 
         entityManager.getTransaction().commit();
-
     }
-
 }

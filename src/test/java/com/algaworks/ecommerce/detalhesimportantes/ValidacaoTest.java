@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class ValidacaoTest extends EntityManagerTest {
 
     @Test
-    public  void validarCliente() {
+    public void validarCliente() {
         entityManager.getTransaction().begin();
 
         Cliente cliente = new Cliente();
@@ -15,5 +15,4 @@ public class ValidacaoTest extends EntityManagerTest {
 
         entityManager.getTransaction().commit();
     }
-
 }

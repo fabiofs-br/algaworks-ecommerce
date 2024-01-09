@@ -11,11 +11,11 @@ import java.time.LocalDate;
 public class SecondaryTableTest extends EntityManagerTest {
 
     @Test
-    public void salvarcliente() {
+    public void salvarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("Carlos Finotti");
-        cliente.setSexo(SexoCliente.MASCULINO);
         cliente.setCpf("555");
+        cliente.setSexo(SexoCliente.MASCULINO);
         cliente.setDataNascimento(LocalDate.of(1990, 1, 1));
 
         entityManager.getTransaction().begin();
@@ -27,5 +27,4 @@ public class SecondaryTableTest extends EntityManagerTest {
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
         Assertions.assertNotNull(clienteVerificacao.getSexo());
     }
-
 }

@@ -2,10 +2,10 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Produto;
-import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class DynamicQueryTest extends EntityManagerTest {
@@ -44,5 +44,4 @@ public class DynamicQueryTest extends EntityManagerTest {
 
         return typedQuery.getResultList();
     }
-
 }

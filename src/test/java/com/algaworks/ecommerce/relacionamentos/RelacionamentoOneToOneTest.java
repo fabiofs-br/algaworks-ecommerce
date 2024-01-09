@@ -1,12 +1,12 @@
 package com.algaworks.ecommerce.relacionamentos;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.mapeamentoavancado.SalvandoArquivosTest;
 import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 
 public class RelacionamentoOneToOneTest extends EntityManagerTest {
@@ -26,7 +26,7 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
         Assertions.assertNotNull(pedidoVerificacao.getPagamento());
     }
 
@@ -34,27 +34,18 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
     public void verificarRelacionamentoPedidoNotaFiscal() {
         Pedido pedido = entityManager.find(Pedido.class, 1);
 
-        NotaFiscal notafiscal = new NotaFiscal();
-        notafiscal.setXml(carregarNotaFiscal());
-        notafiscal.setDataEmissao(new Date());
-        notafiscal.setPedido(pedido);
+        NotaFiscal notaFiscal = new NotaFiscal();
+        notaFiscal.setXml("TESTE".getBytes());
+        notaFiscal.setDataEmissao(new Date());
+        notaFiscal.setPedido(pedido);
 
         entityManager.getTransaction().begin();
-        entityManager.persist(notafiscal);
+        entityManager.persist(notaFiscal);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
         Assertions.assertNotNull(pedidoVerificacao.getNotaFiscal());
     }
-
-    private static byte[] carregarNotaFiscal() {
-        try {
-            return SalvandoArquivosTest.class.getResourceAsStream("/nota-fiscal.xml").readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

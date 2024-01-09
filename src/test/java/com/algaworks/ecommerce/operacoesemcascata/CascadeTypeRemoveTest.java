@@ -1,17 +1,14 @@
 package com.algaworks.ecommerce.operacoesemcascata;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.ItemPedido;
-import com.algaworks.ecommerce.model.ItemPedidoId;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CascadeTypeRemoveTest extends EntityManagerTest {
 
-//    @Test
-    public void removeritensOrfaos() {
+    // @Test
+    public void removerItensOrfaos() {
         Pedido pedido = entityManager.find(Pedido.class, 1);
 
         Assertions.assertFalse(pedido.getItens().isEmpty());
@@ -22,8 +19,8 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Pedido pedido1Verificacao = entityManager.find(Pedido.class, pedido.getId());
-        Assertions.assertTrue(pedido1Verificacao.getItens().isEmpty());
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
+        Assertions.assertTrue(pedidoVerificacao.getItens().isEmpty());
     }
 
     @Test
@@ -38,11 +35,11 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Produto produto1Verificacao = entityManager.find(Produto.class, produto.getId());
-        Assertions.assertTrue(produto1Verificacao.getCategorias().isEmpty());
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assertions.assertTrue(produtoVerificacao.getCategorias().isEmpty());
     }
 
-//    @Test
+    // @Test
     public void removerPedidoEItens() {
         Pedido pedido = entityManager.find(Pedido.class, 1);
 
@@ -56,9 +53,10 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
         Assertions.assertNull(pedidoVerificacao);
     }
 
-//    @Test
+    // @Test
     public void removerItemPedidoEPedido() {
-        ItemPedido itemPedido = entityManager.find(ItemPedido.class, new ItemPedidoId(1,1));
+        ItemPedido itemPedido = entityManager.find(
+                ItemPedido.class, new ItemPedidoId(1, 1));
 
         entityManager.getTransaction().begin();
         entityManager.remove(itemPedido); // Necessário CascadeType.REMOVE no atributo "pedido".
@@ -69,5 +67,4 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, itemPedido.getPedido().getId());
         Assertions.assertNull(pedidoVerificacao);
     }
-
 }

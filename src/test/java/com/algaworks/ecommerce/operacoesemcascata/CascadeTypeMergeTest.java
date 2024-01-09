@@ -1,30 +1,25 @@
 package com.algaworks.ecommerce.operacoesemcascata;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Categoria;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.ItemPedido;
-import com.algaworks.ecommerce.model.ItemPedidoId;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import com.algaworks.ecommerce.model.StatusPedido;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class CascadeTypeMergeTest extends EntityManagerTest {
 
-//    @Test
+    // @Test
     public void atualizarProdutoComCategoria() {
         Produto produto = new Produto();
         produto.setId(1);
         produto.setDataUltimaAtualizacao(LocalDateTime.now());
         produto.setPreco(new BigDecimal(500));
         produto.setNome("Kindle");
-        produto.setDescricao("Agora com iluminação embutida ajustavel.");
+        produto.setDescricao("Agora com iluminação embutida ajustável.");
 
         Categoria categoria = new Categoria();
         categoria.setId(2);
@@ -42,7 +37,7 @@ public class CascadeTypeMergeTest extends EntityManagerTest {
         Assertions.assertEquals("Tablets", categoriaVerificacao.getNome());
     }
 
-    //    @Test
+    // @Test
     public void atualizarPedidoComItens() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
@@ -73,7 +68,7 @@ public class CascadeTypeMergeTest extends EntityManagerTest {
         Assertions.assertTrue(itemPedidoVerificacao.getQuantidade().equals(3));
     }
 
-    //    @Test
+    // @Test
     public void atualizarItemPedidoComPedido() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);

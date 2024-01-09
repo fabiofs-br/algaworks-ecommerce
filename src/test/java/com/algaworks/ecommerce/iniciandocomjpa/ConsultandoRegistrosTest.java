@@ -8,11 +8,9 @@ import org.junit.jupiter.api.Test;
 public class ConsultandoRegistrosTest extends EntityManagerTest {
 
     @Test
-    public void buscarPorIdentificador() {
+    public void busarPorIdentificador() {
         Produto produto = entityManager.find(Produto.class, 1);
 //        Produto produto = entityManager.getReference(Produto.class, 1);
-
-        System.out.println("Ainda não buscou!!!");
 
         Assertions.assertNotNull(produto);
         Assertions.assertEquals("Kindle", produto.getNome());
@@ -27,5 +25,4 @@ public class ConsultandoRegistrosTest extends EntityManagerTest {
 
         Assertions.assertEquals("Kindle", produto.getNome());
     }
-
 }

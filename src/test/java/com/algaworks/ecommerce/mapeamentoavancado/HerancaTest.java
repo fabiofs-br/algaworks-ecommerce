@@ -1,12 +1,7 @@
 package com.algaworks.ecommerce.mapeamentoavancado;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.Pagamento;
-import com.algaworks.ecommerce.model.PagamentoCartao;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.SexoCliente;
-import com.algaworks.ecommerce.model.StatusPagamento;
+import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +10,7 @@ import java.util.List;
 public class HerancaTest extends EntityManagerTest {
 
     @Test
-    public void salvarcliente() {
+    public void salvarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("Fernanda Morais");
         cliente.setSexo(SexoCliente.FEMININO);
@@ -33,7 +28,7 @@ public class HerancaTest extends EntityManagerTest {
 
     @Test
     public void buscarPagamentos() {
-        List<Pagamento> pagamentos =  entityManager
+        List<Pagamento> pagamentos = entityManager
                 .createQuery("select p from Pagamento p")
                 .getResultList();
 
@@ -45,9 +40,9 @@ public class HerancaTest extends EntityManagerTest {
         Pedido pedido = entityManager.find(Pedido.class, 1);
 
         PagamentoCartao pagamentoCartao = new PagamentoCartao();
-        pagamentoCartao.setNumeroCartao("123");
-        pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
         pagamentoCartao.setPedido(pedido);
+        pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
+        pagamentoCartao.setNumeroCartao("123");
 
         entityManager.getTransaction().begin();
         entityManager.persist(pagamentoCartao);
@@ -58,5 +53,4 @@ public class HerancaTest extends EntityManagerTest {
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
         Assertions.assertNotNull(pedidoVerificacao.getPagamento());
     }
-
 }

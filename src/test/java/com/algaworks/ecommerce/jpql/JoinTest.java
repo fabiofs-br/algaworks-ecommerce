@@ -2,10 +2,10 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Pedido;
-import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class JoinTest extends EntityManagerTest {
@@ -13,9 +13,9 @@ public class JoinTest extends EntityManagerTest {
     @Test
     public void usarJoinFetch() {
         String jpql = "select p from Pedido p "
-                + "left join fetch p.pagamento "
-                + "join fetch p.cliente "
-                + "left join fetch p.notaFiscal"
+                 + " left join fetch p.pagamento "
+                 + " join fetch p.cliente "
+                 + " left join fetch p.notaFiscal "
                 ;
 
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
@@ -43,5 +43,4 @@ public class JoinTest extends EntityManagerTest {
         List<Object[]> lista = typedQuery.getResultList();
         Assertions.assertFalse(lista.isEmpty());
     }
-
 }

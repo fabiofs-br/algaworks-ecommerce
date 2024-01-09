@@ -9,5 +9,4 @@ public class DDLTest extends EntityManagerTest {
     public void gerarDDL() {
         // Teste vazio... Somente para exibir DDL.
     }
-
 }

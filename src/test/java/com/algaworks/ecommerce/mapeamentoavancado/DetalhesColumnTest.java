@@ -1,7 +1,7 @@
 package com.algaworks.ecommerce.mapeamentoavancado;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.*;
+import com.algaworks.ecommerce.model.Produto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class DetalhesColumnTest  extends EntityManagerTest {
+public class DetalhesColumnTest extends EntityManagerTest {
 
     @Test
     public void impedirInsercaoDaColunaAtualizacao() {
@@ -50,5 +50,4 @@ public class DetalhesColumnTest  extends EntityManagerTest {
         Assertions.assertEquals(produto.getDataUltimaAtualizacao().truncatedTo(ChronoUnit.SECONDS),
                 produtoVerificacao.getDataUltimaAtualizacao().truncatedTo(ChronoUnit.SECONDS));
     }
-
 }
